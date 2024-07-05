@@ -1,72 +1,68 @@
-package ru.neoflex.dealservice.service;
+package ru.neoflex.dealservice.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import ru.neoflex.dealservice.dto.LoanOfferDto;
 import ru.neoflex.dealservice.dto.LoanStatementRequestDto;
-import ru.neoflex.dealservice.mapper.ClientMapper;
-import ru.neoflex.dealservice.model.ApplicationStatus;
-import ru.neoflex.dealservice.model.Client;
-import ru.neoflex.dealservice.model.Statement;
-import ru.neoflex.dealservice.repository.ClientRepository;
-import ru.neoflex.dealservice.repository.StatementRepository;
+import ru.neoflex.dealservice.dal.entity.ApplicationStatus;
+import ru.neoflex.dealservice.dal.entity.Statement;
+import ru.neoflex.dealservice.dal.repository.StatementRepository;
+import ru.neoflex.dealservice.service.api.DealService;
+import ru.neoflex.dealservice.service.api.PrepareClientStatementService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class DealService {
+@Slf4j
+public class DealServiceImpl implements DealService {
 
-    private final ClientRepository clientRepository;
+    @Value("${calculator-service.url}")
+    private String calculatorServiceUrl;
+
     private final StatementRepository statementRepository;
-    private final ClientMapper clientMapper = ClientMapper.INSTANCE;
+    private final PrepareClientStatementService prepareClientStatementService;
     private final RestTemplate restTemplate = new RestTemplate();
 
-    @Transactional
-    public List<LoanOfferDto> processLoanStatement(LoanStatementRequestDto dto) {
-        Client client = clientMapper.toEntity(dto);
-        System.out.println("client = " + client);
-        client = clientRepository.save(client);
+    @Override
+    public List<LoanOfferDto> processLoanStatement(LoanStatementRequestDto loanStatementRequestDto) {
+        Statement statement = prepareClientStatementService.createStatement(loanStatementRequestDto);
 
-        Statement statement = new Statement(client);
-        statement = statementRepository.save(statement);
-
-        String calculatorServiceUrl = "http://localhost:8081/calculator/offers";
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
 
-        HttpEntity<LoanStatementRequestDto> request = new HttpEntity<>(dto, headers);
+        HttpEntity<LoanStatementRequestDto> request = new HttpEntity<>(loanStatementRequestDto, headers);
         ResponseEntity<List<LoanOfferDto>> response = restTemplate.exchange(
                 calculatorServiceUrl,
                 HttpMethod.POST,
                 request,
-                new ParameterizedTypeReference<>() {
-                }
+                new ParameterizedTypeReference<>() {}
         );
 
         List<LoanOfferDto> loanOffers = response.getBody();
+        log.info("Received loan offers: {}", loanOffers);
         for (LoanOfferDto offer : loanOffers) {
             offer.setStatementId(statement.getId());
         }
 
-        // Сортировка LoanOfferDto от "худшего" к "лучшему" (по возрастанию ставки процента)
-//        loanOffers.sort((o1, o2) -> o1.getInterestRate().compareTo(o2.getInterestRate()));
-
         return loanOffers;
     }
 
+    @Override
     public void processOfferSelect(LoanOfferDto loanOfferDto) {
-        System.out.println("loanOfferDto = " + loanOfferDto);
+        log.info("Processing offer select request: {}", loanOfferDto);
         Statement statement = statementRepository.findById(loanOfferDto.getStatementId())
                 .orElseThrow(() -> new RuntimeException("Statement not found"));
+        log.info("Found statement entity: {}", statement);
 
         statement.setStatus(ApplicationStatus.APPROVED);
         List<ApplicationStatus> statusHistory = statement.getStatusHistory();
@@ -78,7 +74,7 @@ public class DealService {
         appliedOffer.add(loanOfferDto);
         statement.setAppliedOffer(appliedOffer);
 
-        // 4. Заявка сохраняется.
         statementRepository.save(statement);
+        log.info("Saved statement entity with updated status and applied offer: {}", statement);
     }
 }

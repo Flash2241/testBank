@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: deal-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/deal
+    username: anelfer
+    password: anelfer
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+
+calculator-service:
+    url: http://localhost:8081/calculator/offers

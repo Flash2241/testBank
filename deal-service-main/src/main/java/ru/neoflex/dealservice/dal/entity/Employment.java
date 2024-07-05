@@ -1,4 +1,4 @@
-package ru.neoflex.dealservice.model;
+package ru.neoflex.dealservice.dal.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,7 +7,6 @@ import ru.neoflex.dealservice.dto.calculator.EmploymentPosition;
 import ru.neoflex.dealservice.dto.calculator.EmploymentStatus;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 @Entity
 @Getter

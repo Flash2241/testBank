@@ -11,8 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import ru.neoflex.dealservice.model.Gender;
-import ru.neoflex.dealservice.model.MaritalStatus;
+import ru.neoflex.dealservice.dal.entity.Gender;
+import ru.neoflex.dealservice.dal.entity.MaritalStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

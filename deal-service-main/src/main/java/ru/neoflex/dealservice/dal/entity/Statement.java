@@ -1,4 +1,4 @@
-package ru.neoflex.dealservice.model;
+package ru.neoflex.dealservice.dal.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
