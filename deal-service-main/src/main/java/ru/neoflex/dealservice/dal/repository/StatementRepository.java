@@ -2,7 +2,7 @@ package ru.neoflex.dealservice.dal.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.neoflex.dealservice.model.Client;
+
 import ru.neoflex.dealservice.dal.entity.Statement;
 
 import java.util.UUID;

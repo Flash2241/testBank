@@ -6,7 +6,6 @@ import org.mapstruct.factory.Mappers;
 import ru.neoflex.dealservice.dal.entity.Client;
 import ru.neoflex.dealservice.dto.FinishRegistrationRequestDto;
 import ru.neoflex.dealservice.dto.calculator.ScoringDataDto;
-import ru.neoflex.dealservice.model.Client;
 
 @Mapper
 public interface ClientToScoringDataMapper {

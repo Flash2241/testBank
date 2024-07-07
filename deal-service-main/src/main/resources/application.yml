@@ -1,18 +1,24 @@
 spring:
-  application:
-    name: deal-service
-
   datasource:
-    url: jdbc:postgresql://localhost:5432/deal
-    username: anelfer
-    password: anelfer
+    # URL подключения к базе данных PostgreSQL
+    url: jdbc:postgresql://localhost:5432/deal-service1
+    # Имя пользователя для подключения к базе данных
+    username: postgres
+    # Пароль для подключения к базе данных
+    password: Andrey224
+    #  Класс драйвера PostgreSQL
     driver-class-name: org.postgresql.Driver
-
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
-    generate-ddl: true
+      # Настройка автоматического создания/обновления схемы базы данных
+      ddl-auto: create
+    show-sql: true
+    # Включение отображения SQL- запросов в консоли
+    properties:
+      hibernate:
+        # Определение диалекта для PostgreSQL
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 calculator-service:
-    url: http://localhost:8081/calculator/offers
+  # URL для сервиса калькулятора
+  url: https://localhost:8080/calculator
