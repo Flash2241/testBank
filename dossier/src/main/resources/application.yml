@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: dossier-service
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: dossier-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+logging:
+  level:
+    root: INFO
+    com.example.dossier: DEBUG
+
+
+  spring:
+    kafka:
+      bootstrap-servers: localhost:9092
+spring:
+  mail:
+    host: smtp.example.com
+    port: 587
+    username: Andrey
+    password: Andrey
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
