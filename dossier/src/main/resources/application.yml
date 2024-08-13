@@ -13,3 +13,20 @@ logging:
   level:
     root: INFO
     com.example.dossier: DEBUG
+
+
+  spring:
+    kafka:
+      bootstrap-servers: localhost:9092
+spring:
+  mail:
+    host: smtp.example.com
+    port: 587
+    username: Andrey
+    password: Andrey
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
