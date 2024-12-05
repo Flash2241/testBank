@@ -1,0 +1,31 @@
+[33md68be7b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mgateway1[m[33m, [m[1;31morigin/gateway1[m[33m)[m обавление проекта в ветку gateway1
+[33m63bd376[m Add files via upload
+[33m531ae7a[m[33m ([m[1;31morigin/main[m[33m)[m Merge pull request #9 from Flash2241/dossier1
+[33md19fad3[m[33m ([m[1;31morigin/dossier1[m[33m)[m Внесены изменения после ревью исправлены недочёты.
+[33mbc246c5[m Add files via upload
+[33m04095d2[m Merge pull request #3 from Flash2241/deal
+[33m1535436[m[33m ([m[1;31morigin/deal[m[33m)[m Changes have been made to the yml configuration file, a docker-compose file has been created
+[33maaeeca0[m Comments have been taken into account, corrections have been made
+[33m563e7b7[m MVP2 deal
+[33m0678e95[m[33m ([m[1;31morigin/develop[m[33m)[m Merge pull request #1 from Flash2241/feature/calculator/init_service
+[33ma9cbfeb[m[33m ([m[1;31morigin/feature/calculator/init_service[m[33m)[m made amendments to the draft after 2 reviews
+[33m234b6fb[m Учтены замечания
+[33mfda6c05[m Учтены замечания
+[33m84b1704[m Сервис калькулятор перенесен в отдельную папку
+[33m2b481f0[m Добавлены комментарии к коду
+[33m56d2709[m Добавлены тесты
+[33m1dc8f95[m Добавлены пропущенные файлы
+[33m260107a[m Добавлен OpenAPI и подсчет кредита
+[33m53f2f36[m Результат prescoring возвращается приложением
+[33m3824165[m Добавлено вычисление prescoring
+[33m54da6e9[m Обновлен файл конфигурации
+[33mbe77525[m Добавлена валидация на /calc
+[33mdd21b9b[m Добавлена валидация на /offers
+[33mf95cd11[m Добавлен контроллер /calc и /offers
+[33meddf716[m Добавлены DTO
+[33m89f9b8f[m Исправлен pom.xml в соответствии с требованиями задания
+[33m90c3485[m Update README.md
+[33m86f56e3[m Update README.md
+[33m2777efa[m Update README.md
+[33m37c0be4[m Add prescoring and scoring controllers
+[33me5c447a[m first commit
